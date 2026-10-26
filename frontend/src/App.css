@@ -1,27 +1,126 @@
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 24px;
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Cinzel", Georgia, serif;
+
+  --animate-rise: rise 0.6s ease-out both;
+  --animate-gradient: gradient 6s ease infinite;
+  --animate-marquee: marquee 50s linear infinite;
+  --animate-shimmer: shimmer 2.5s ease-in-out infinite;
+  --animate-blink: blink 1s step-end infinite;
+  --animate-glow: glow 2.5s ease-in-out infinite;
+  --animate-ember: ember 8s linear infinite;
+  --animate-eye: eye 5s ease-in-out infinite;
+  --animate-fly: fly 28s linear infinite;
+  --animate-orb-a: orb-a 22s ease-in-out infinite;
+  --animate-orb-b: orb-b 28s ease-in-out infinite;
+  --animate-orb-c: orb-c 25s ease-in-out infinite;
+  --animate-orb-d: orb-d 32s ease-in-out infinite;
+  --animate-fog: fog 40s linear infinite;
+  --animate-breathe: breathe 6s ease-in-out infinite;
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes gradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes shimmer {
+    0% { transform: translateX(-120%); }
+    60%, 100% { transform: translateX(120%); }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(249, 115, 22, 0.4); }
+    50% { box-shadow: 0 0 40px rgba(239, 68, 68, 0.7); }
+  }
+  @keyframes ember {
+    0% { transform: translate(0, 0) scale(1); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translate(var(--drift, 0px), -105vh) scale(0.3); opacity: 0; }
+  }
+  @keyframes eye {
+    0%, 90%, 100% { transform: scaleY(1); }
+    94% { transform: scaleY(0.08); }
+  }
+  @keyframes fly {
+    0% { transform: translate(-15vw, 0); }
+    50% { transform: translate(55vw, -35px); }
+    100% { transform: translate(115vw, 10px); }
+  }
+  @keyframes orb-a {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(18vw, 14vh) scale(1.25); }
+    66% { transform: translate(6vw, 32vh) scale(0.9); }
+  }
+  @keyframes orb-b {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-22vw, 18vh) scale(1.2); }
+    66% { transform: translate(-8vw, -10vh) scale(0.85); }
+  }
+  @keyframes orb-c {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(24vw, -22vh) scale(1.3); }
+  }
+  @keyframes orb-d {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+    50% { transform: translate(-16vw, -14vh) scale(1.2); opacity: 1; }
+  }
+  @keyframes fog {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes breathe {
+    0%, 100% { opacity: 0.55; transform: scaleY(1); }
+    50% { opacity: 0.95; transform: scaleY(1.15); }
+  }
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 16px;
+html {
+  scroll-behavior: smooth;
 }
 
-.card {
-  border: 1px solid #444;
-  border-radius: 12px;
-  padding: 16px;
-  text-align: left;
+body {
+  margin: 0;
+  background: #0a0403;
 }
 
-.genre {
-  color: #888;
-  font-size: 14px;
+/* Dragon scale pattern */
+.scales {
+  background-image:
+    radial-gradient(circle at 50% 100%, transparent 0, transparent 47%, rgba(249, 115, 22, 0.08) 49%, rgba(249, 115, 22, 0.08) 52%, transparent 54%),
+    radial-gradient(circle at 50% 100%, transparent 0, transparent 47%, rgba(249, 115, 22, 0.08) 49%, rgba(249, 115, 22, 0.08) 52%, transparent 54%);
+  background-size: 48px 28px;
+  background-position: 0 0, 24px 14px;
 }
 
-.rating {
-  font-weight: bold;
+/* Smoky fog layer (two copies side by side, scrolls seamlessly) */
+.fog {
+  background-image:
+    radial-gradient(ellipse 30% 40% at 10% 50%, rgba(255, 120, 40, 0.10), transparent 70%),
+    radial-gradient(ellipse 25% 35% at 35% 30%, rgba(220, 38, 38, 0.10), transparent 70%),
+    radial-gradient(ellipse 30% 40% at 60% 60%, rgba(251, 146, 60, 0.08), transparent 70%),
+    radial-gradient(ellipse 25% 35% at 85% 35%, rgba(180, 30, 30, 0.10), transparent 70%);
+  background-size: 50% 100%;
+  background-repeat: repeat-x;
+}
+
+/* Dark edges for depth */
+.vignette {
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+/* Fade edges for the marquee */
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
 }
