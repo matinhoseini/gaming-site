@@ -3,6 +3,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import { useTypewriter } from "./hooks";
 import { useAuth } from "./AuthContext";
 import AuthPage from "./AuthPage";
+import GamePage from "./GamePage";
 import { DragonCrest, DragonSilhouette, ShieldMark } from "./logos";
 import {
   DragonEyes,
@@ -243,7 +244,10 @@ function HomePage() {
             return (
               <Reveal key={game.id} delay={(i % 3) * 120}>
                 <TiltCard>
-                  <div className="group h-full overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur transition-all duration-300 hover:border-amber-700/60 hover:shadow-2xl hover:shadow-red-950/60">
+                  <Link
+                    to={`/games/${game.id}`}
+                    className="group block h-full overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur transition-all duration-300 hover:border-amber-700/60 hover:shadow-2xl hover:shadow-red-950/60"
+                  >
                     <div
                       className={`relative flex h-44 items-end overflow-hidden bg-gradient-to-br p-5 ${
                         banners[game.id % banners.length]
@@ -275,7 +279,7 @@ function HomePage() {
                         <span className="text-stone-500">{game.release_date ?? "—"}</span>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </TiltCard>
               </Reveal>
             );
@@ -318,6 +322,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<AuthPage mode="login" />} />
         <Route path="/register" element={<AuthPage mode="register" />} />
+        <Route path="/games/:id" element={<GamePage />} />
       </Routes>
 
       <footer className="font-display relative z-10 border-t border-amber-700/20 py-8 text-center text-sm text-stone-500">
