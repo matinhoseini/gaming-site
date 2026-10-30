@@ -3,7 +3,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import { useTypewriter } from "./hooks";
 import { useAuth } from "./AuthContext";
 import AuthPage from "./AuthPage";
-import GamePage from "./GamePage";
+import { default as GamePage } from "./GamePage.tsx";
 import { DragonCrest, DragonSilhouette, ShieldMark } from "./logos";
 import {
   DragonEyes,
